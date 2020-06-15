@@ -1,0 +1,53 @@
+@model WithdrawDeposit
+<form asp-action="Create" asp-controller="Transaction">
+    <div class="row">
+        <div class="col s6">
+            <h3>Welcome, @ViewBag.Username</h3>
+        </div>
+        <div class="col s6 right-align">
+            <h5>Current Balance: @ViewBag.Balance</h5>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col s3">
+            <h5>Deposit / Withdraw</h5>
+        </div>
+        <div class="col s3">
+            <label asp-for="WithdrawSelect"></label>
+            <select asp-for="WithdrawSelect" class="browser-default">
+                <option value="withdraw">Withdraw</option>
+                <option value="deposit">Deposit</option>
+            </select>
+            <span asp-validation-for="WithdrawSelect"></span>
+        </div>
+        <div class="input-field col s3 center-align">
+            <input asp-for="Amount" type="text">
+            <label asp-for="Amount"></label>
+            <span asp-validation-for="Amount"></span>
+        </div>
+        <div class="col s3 right-align">
+            <button type="text" class="waves-effect waves-light btn">Submit</button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col s12">
+            <table class="striped">
+                <thead>
+                    <tr>
+                        <th>Amount</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach(var transaction in ViewBag.Transactions)
+                    {
+                        <tr>
+                            <td>@transaction.Amount</td>
+                            <td>@transaction.CreatedAt.ToString("MMM d yyyy")</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</form>
